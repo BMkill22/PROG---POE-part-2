@@ -83,7 +83,7 @@ public class Login_Registraction {
             String password = JOptionPane.showInputDialog("Enter password:");
             if (loginSystem.login(username, password)) {
                 JOptionPane.showMessageDialog(null, "Login successful.");
-              
+                return true;
             } else {
                 JOptionPane.showMessageDialog(null, "Invalid login. Please try again.");
             }

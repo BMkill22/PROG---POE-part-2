@@ -4,8 +4,19 @@
  */
 package login_registraction;
 
-//This are the different types of tasks that the user will be able to add
+
     public class Task {
+
+//This is for the unit tests 
+    static short calculateTotalHours(int[] durations) {
+        throw new UnsupportedOperationException("Not supported yet."); 
+    }
+
+    static short calculateTotalHoursAdditionalData(int[] durations) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+//This are the different types of tasks that the user will be able to add
         private String taskName;
         private int taskNumber;
         private String taskDescription;
@@ -13,6 +24,7 @@ package login_registraction;
         private int taskDuration;
         private String taskID;
         private String taskStatus;
+    Object getTaskID;
 
     public Task(String taskName, int taskNumber, String taskDescription, String developerDetails, int taskDuration, String taskStatus) {
         this.taskName = taskName;
@@ -22,6 +34,10 @@ package login_registraction;
         this.taskDuration = taskDuration;
         this.taskStatus = taskStatus;
         this.taskID = createTaskID();
+    }
+
+    Task(String login_Feature, String should_create_a_login_to_authenticate_the, String robyn_Harrison, int i, String to_Do) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 //The limit of chararcters that they can add
@@ -49,6 +65,14 @@ package login_registraction;
 
     public int getTaskDuration() {
         return taskDuration;
+    }
+
+    Object captureTask() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    Object getTaskID() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
 
