@@ -11,46 +11,66 @@ import java.util.List;
  * @author kefil
  */
 public class MainClass {
-
-
+    
+    private static List<String> passwords = new ArrayList<>();
+    private static List<String> usernames = new ArrayList<>();
     private static List<Task> tasks = new ArrayList<>();
     private static int totalHours = 0;
     private static Login_Registraction loginSystem = new Login_Registraction();
 
     public static void main(String[] args) {
+         boolean run = true;
+         
         while (true) {
-            String[] options = {"Register", "Login", "Quit"};
-            int choice = JOptionPane.showOptionDialog(null, "Welcome to EasyKanban", "Main Menu", 
-                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
-
-            switch (choice) {
-                case 0:
-                    register();
-                    break;
-                case 1:
-                    if (login()) {
-                        runApp();
-                    }
-                    break;
-                case 2:
-                    System.exit(0);
-            }
+// This displays the options the user should choose
+        String choose = JOptionPane.showInputDialog(null, "Option 1) Register " + "\nOption 2) Login " + "\nOption 3) Quit","Login information", JOptionPane.QUESTION_MESSAGE);
+    
+//This will re-display the menu if the user cancels
+        if (choose == null){
+            continue;
         }
+        if (choose.equals("1")){
+           register();
+        }
+        else if (choose.equals("2")){
+            login();
+        }
+        else if (choose.equalsIgnoreCase("3")){
+            run = false;
+        }    
+            else{    
+            JOptionPane.showMessageDialog(null, "option is invalid. choose between 1,2 and 3");
+        }}
     }
 
     private static void register() {
-        String username = JOptionPane.showInputDialog("Enter a username:");
-        if (username == null || username.isEmpty() || loginSystem.register(username, "dummy")) {
-            JOptionPane.showMessageDialog(null, "Invalid username or username already exists. Please try again.");
-            return;
+        String name = JOptionPane.showInputDialog("Enter your name:");
+        if (name == null || name.isEmpty() || loginSystem.register(name, "dummy")) {    
         }
-        String password = JOptionPane.showInputDialog("Enter a new password:");
+        String surname = JOptionPane.showInputDialog("Enter your surname:");
+        if (surname == null || surname.isEmpty() || loginSystem.register(surname, "dummy")) {
+        }
+        String username = JOptionPane.showInputDialog("Enter your username:");
+        while (true) {
+    //This haas conditions that the user will have to have in the username
+            username = JOptionPane.showInputDialog("Enter a username (5 characters with underscore):");
+            if (username != null && username.length() == 5 && username.contains("_")) {
+                if (usernames.contains(username)) {
+                    JOptionPane.showMessageDialog(null, "Username already taken. Please choose another one.");
+                } else {
+                    break;
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Invalid username. It must be exactly 5 characters long and include an underscore.");
+            }
+        }
+        String password = JOptionPane.showInputDialog("Enter your password:");
         if (password == null || password.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Invalid password. Please try again.");
+            JOptionPane.showMessageDialog(null, "Incorrect password. Please try again.");
             return;
         }
         loginSystem.register(username, password);
-        JOptionPane.showMessageDialog(null, "Registration successful. You can now log in.");
+        JOptionPane.showMessageDialog(null, "Registration was successful.");
     }
 
     private static boolean login() {
@@ -63,35 +83,56 @@ public class MainClass {
                 JOptionPane.showMessageDialog(null, "Invalid login. Please try again.");
             }
         return false;
+        
     }
+// The user will have to enter the right conditions to meet the requirments for the password
+    private static boolean isValidPassword(String password) {
+        if (password.length() == 8){
+            return false;   
+        }
+        
+            boolean hasUpperCase =  false;
+            boolean hasNumber = false;
+            boolean hasSpecialChar = false;
+        
+        for(char Ch : password.toCharArray()){
+            if(Character.isUpperCase(Ch)){
+                hasUpperCase = true;
+        }
+            else if(Character.isDigit(Ch)){
+                hasNumber = true;
+        }
+            else if(!Character.isLetterOrDigit(Ch)){
+                hasSpecialChar = true;    
+        }
+    }
+            return hasUpperCase && hasNumber && hasSpecialChar;
+   }
 
     private static void runApp() {
         JOptionPane.showMessageDialog(null, "Welcome to EasyKanban");
 
-        boolean running = true;
-        while (running) {
-            String menu = "Please choose an option:\n"
-                        + "1) Add tasks\n"
-                        + "2) Show report\n"
-                        + "3) Quit";
-            String choice = JOptionPane.showInputDialog(menu);
-            if (choice == null) {
-                continue;  // Handle cancel button and empty input
-            }
-            switch (choice) {
-                case "1":
-                    addTasks();
-                    break;
-                case "2":
-                    showReport();
-                    break;
-                case "3":
-                    running = false;
-                    break;
-                default:
-                    JOptionPane.showMessageDialog(null, "Invalid option. Please choose again.");
-            }
+        boolean run = true;
+        while (run) {
+// This displays the options the user should choose from
+        String choose = JOptionPane.showInputDialog(null, "Option 1) Add task " + "\nOption 2) Show report " + "\nOption 3) Quit","Login information", JOptionPane.QUESTION_MESSAGE);
+    
+//This will re-display the menu if the user cancels
+        if (choose == null){
+            continue;
         }
+        if (choose.equals("1")){
+           addTasks();
+        }
+        else if (choose.equals("2")){
+            showReport();
+        }
+        else if (choose.equalsIgnoreCase("3")){
+            run = false;
+        }    
+            else{    
+            JOptionPane.showMessageDialog(null, "option is incorrect. choose between 1,2 and 3");
+        }}
     }
 
     private static void addTasks() {

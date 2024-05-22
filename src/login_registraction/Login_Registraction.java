@@ -14,6 +14,7 @@ public class Login_Registraction {
     private Map<String, String> users = new HashMap<>();
 
     public boolean register(String username, String password) {
+     
         if (username == null || username.isEmpty() || users.containsKey(username)) {
             return false;
         }
