@@ -15,6 +15,7 @@ public class MainClass {
     private static List<String> passwords = new ArrayList<>();
     private static List<String> usernames = new ArrayList<>();
     private static List<Task> tasks = new ArrayList<>();
+    private static List<Login_Registraction> logins = new ArrayList<>();
     private static int totalHours = 0;
     private static Login_Registraction loginSystem = new Login_Registraction();
 
@@ -43,6 +44,7 @@ public class MainClass {
         }}
     }
 
+// User has to register first before they can login
     private static void register() {
         String name = JOptionPane.showInputDialog("Enter your name:");
         if (name == null || name.isEmpty() || loginSystem.register(name, "dummy")) {    
@@ -50,9 +52,9 @@ public class MainClass {
         String surname = JOptionPane.showInputDialog("Enter your surname:");
         if (surname == null || surname.isEmpty() || loginSystem.register(surname, "dummy")) {
         }
-        String username = JOptionPane.showInputDialog("Enter your username:");
+        String username;
         while (true) {
-    //This haas conditions that the user will have to have in the username
+//This haas conditions that the user will have to have in the username
             username = JOptionPane.showInputDialog("Enter a username (5 characters with underscore):");
             if (username != null && username.length() == 5 && username.contains("_")) {
                 if (usernames.contains(username)) {
@@ -73,6 +75,7 @@ public class MainClass {
         JOptionPane.showMessageDialog(null, "Registration was successful.");
     }
 
+//This is the code of the login 
     private static boolean login() {
             String username = JOptionPane.showInputDialog("Enter username:");
             String password = JOptionPane.showInputDialog("Enter password:");
@@ -135,10 +138,12 @@ public class MainClass {
         }}
     }
 
+// Handle will cancel button and an empty input
+//All of this are the codes of what the user should enter for different types of tasks    
     private static void addTasks() {
         String input = JOptionPane.showInputDialog("How many tasks would you like to add?");
         if (input == null || input.isEmpty()) {
-            return;  // Handle cancel button and empty input
+            return;  
         }
         int numTasks;
         try {
@@ -158,7 +163,7 @@ public class MainClass {
             while (true) {
                 taskDescription = JOptionPane.showInputDialog("Enter task description (max 50 characters):");
                 if (taskDescription == null) {
-                    return;  // Handle cancel button
+                    return;  
                 }
                 if (taskDescription.length() > 50) {
                     JOptionPane.showMessageDialog(null, "Please enter a task description of less than 50 characters");
@@ -190,14 +195,14 @@ public class MainClass {
                 continue;
             }
 
+//This is the import of the Task class
             Task task = new Task(taskName, tasks.size(), taskDescription, developerDetails, taskDuration, taskStatus);
             tasks.add(task);
             totalHours += task.getTaskDuration();
 
             JOptionPane.showMessageDialog(null, "Task successfully captured\n" + task.printTaskDetails());
-        }
-
-        JOptionPane.showMessageDialog(null, "Total task duration across all tasks: " + totalHours + " hours");
+    }
+            JOptionPane.showMessageDialog(null, "Total task duration across all tasks: " + totalHours + " hours");
     }
 
     private static void showReport() {

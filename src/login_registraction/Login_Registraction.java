@@ -10,7 +10,8 @@ import java.util.Map;
  * @author kefil
  */
 public class Login_Registraction {
- 
+
+//This is the register and the logins 
     private Map<String, String> users = new HashMap<>();
 
     public boolean register(String username, String password) {
