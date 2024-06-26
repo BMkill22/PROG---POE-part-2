@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JOptionPane;
+import java.util.Arrays;
 /**
  *
  * @author kefil
@@ -17,9 +18,14 @@ public class Login_Registraction {
     private static List<String> passwords = new ArrayList<>();
     private static List<String> usernames = new ArrayList<>();
     private static List<Task> tasks = new ArrayList<>();
+    private static List<String> developers = new ArrayList<>();
+    private static List<Integer> taskDuration = new ArrayList<>();
+    private static List<String> taskName = new ArrayList<>();
+    private static final List<String> taskStatus = new ArrayList<>();
     private static List<Login_Registraction> logins = new ArrayList<>();
     private static int totalHours = 0;
     private static Login_Registraction loginSystem = new Login_Registraction();
+   
 
     public static void main(String[] args) {
          boolean run = true;
@@ -47,7 +53,7 @@ public class Login_Registraction {
     }
 
 // User has to register first before they can login
-    private static void register() {
+    private static void register(){
         String name = JOptionPane.showInputDialog("Enter your name:");
         if (name == null || name.isEmpty() || loginSystem.register(name, "dummy")) {    
         }
@@ -68,7 +74,7 @@ public class Login_Registraction {
                 JOptionPane.showMessageDialog(null, "Invalid username. It must be exactly 5 characters long and include an underscore.");
             }
         }
-        String password = JOptionPane.showInputDialog("Enter your password:");
+        String password = JOptionPane.showInputDialog("Enter your password(7 Characters, a captial letter and a special character):");
         if (password == null || password.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Incorrect password. Please try again.");
             return;
@@ -83,13 +89,52 @@ public class Login_Registraction {
             String password = JOptionPane.showInputDialog("Enter password:");
             if (loginSystem.login(username, password)) {
                 JOptionPane.showMessageDialog(null, "Login successful.");
-                return true;
+                JOptionPane.showMessageDialog(null, "Welcome to EasyKanban");
+
+    boolean run = true;
+    while (run) {
+// This displays the options the user should choose from
+        String choose = JOptionPane.showInputDialog(null, "Option 1) Add task " + "\nOption 2) Show report " + "\nOption 3) View all tasks done" + "\nOption 4) Longest task " + "\nOption 5) Search for task by name" + "\nOption 6) Search for task by developer name " + "\nOption 7) Delete a task " + "\nOption 8) Quit","Login information", JOptionPane.QUESTION_MESSAGE);
+    
+//This will re-display the menu if the user cancels
+        if (choose == null){
+            continue;
+        }
+        if (choose.equals("1")){
+           addTasks();
+        }
+        else if (choose.equals("2")){
+            showReport();
+        }
+           else if (choose.equals("3")){
+            ViewAllTasksDone();
+        }
+              else if (choose.equals("4")){
+            showReport();
+        }
+                 else if (choose.equals("5")){
+            showReport();
+        }
+                    else if (choose.equals("6")){
+            showReport();
+        }
+                       else if (choose.equals("7")){
+            showReport();
+        }
+                    
+        else if (choose.equalsIgnoreCase("8")){
+            run = false;
+        }    
+            else{    
+            JOptionPane.showMessageDialog(null, "option is incorrect. choose between 1,2,3,4,5,6,7,8");
+        }}
+                
             } else {
                 JOptionPane.showMessageDialog(null, "Invalid login. Please try again.");
             }
         return false;
-        
-    }
+        }
+    
 // The user will have to enter the right conditions to meet the requirments for the password
     private static boolean isValidPassword(String password) {
         if (password.length() == 8){
@@ -114,30 +159,16 @@ public class Login_Registraction {
             return hasUpperCase && hasNumber && hasSpecialChar;
    }
 
-    private static void runApp() {
-        JOptionPane.showMessageDialog(null, "Welcome to EasyKanban");
-
-        boolean run = true;
-        while (run) {
-// This displays the options the user should choose from
-        String choose = JOptionPane.showInputDialog(null, "Option 1) Add task " + "\nOption 2) Show report " + "\nOption 3) Quit","Login information", JOptionPane.QUESTION_MESSAGE);
-    
-//This will re-display the menu if the user cancels
-        if (choose == null){
-            continue;
+    private static void ViewAllTasksDone() {
+        StringBuilder result = new StringBuilder("Tasks with status 'Done':\n" );
+        for (int x = 0; x < taskStatus.size(); x++){
+            if ("Done".equals(taskStatus.get(x))){
+                result.append("Developer: ").append(developers.get(x)).append(", Task name: ")
+                      .append(taskName.get(x)).append(", Task Duration: ").append(taskDuration.get(x)).append("\n");
+                        
+            }
         }
-        if (choose.equals("1")){
-           addTasks();
-        }
-        else if (choose.equals("2")){
-            showReport();
-        }
-        else if (choose.equalsIgnoreCase("3")){
-            run = false;
-        }    
-            else{    
-            JOptionPane.showMessageDialog(null, "option is incorrect. choose between 1,2 and 3");
-        }}
+        
     }
 
 // Handle will cancel button and an empty input
@@ -191,7 +222,7 @@ public class Login_Registraction {
                 continue;
             }
 
-//The optios is what is he going to do 
+//The options is what is he going to do 
             String[] statuses = {"To Do", "Done", "Doing"};
             String taskStatus = (String) JOptionPane.showInputDialog(null, "Choose task status:", "Task Status", JOptionPane.QUESTION_MESSAGE, null, statuses, statuses[0]);
             if (taskStatus == null) {
@@ -207,6 +238,8 @@ public class Login_Registraction {
     }
             JOptionPane.showMessageDialog(null, "Total task duration across all tasks: " + totalHours + " hours");
     }
+    
+    
 
     private static void showReport() {
         JOptionPane.showMessageDialog(null, "Coming Soon");
