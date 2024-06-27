@@ -227,22 +227,10 @@ public class Login_Registraction {
             JOptionPane.showMessageDialog(null, "Task successfully captured\n" + task.printTaskDetails());
     }
             JOptionPane.showMessageDialog(null, "Total task duration across all tasks: " + totalHours + " hours");
+            
     }
-    
-    private static void AddTasks() {
-        String developers = JOptionPane.showInputDialog("Enter the developer name: ");
-        String taskNames = JOptionPane.showInputDialog("Enter the task name: ");
-        String taskIDs = JOptionPane.showInputDialog("Enter the task ID: ");
-        String taskStatuses = JOptionPane.showInputDialog("Enter the task status: ");
-        int taskDurations = Integer.parseInt(JOptionPane.showInputDialog("Enter the task duration (hours): "));
-        
-        developer.add(developers);
-        taskName.add(taskNames);
-        taskID.add(taskIDs);
-        taskDuration.add(taskDurations);
-        taskStatus.add(taskStatuses);
-    }
-    
+
+//This lone of code shows all of the task that have be done    
       private static void ViewAllTasksDone() {
           StringBuilder result = new StringBuilder("Tasks with status that are done:\n ");
           for (int x = 0; x <taskStatus.size();x++){
@@ -254,6 +242,7 @@ public class Login_Registraction {
           JOptionPane.showMessageDialog(null, result.toString());
       }
 
+//This code will show only the longest task in terms of the hours taken
     private static void ShowLongestTask(){
         if (taskDuration.isEmpty()){
             JOptionPane.showMessageDialog(null, " No tasks were found! ");
@@ -270,7 +259,8 @@ public class Login_Registraction {
         JOptionPane.showMessageDialog(null, result);
 
     }
-    
+
+//This will let you search for the task by its name only
     private static void SearchTaskName(){
         String taskNames = JOptionPane.showInputDialog("Enter task name to search it: ");
         int index = taskName.indexOf(taskNames);
@@ -282,7 +272,8 @@ public class Login_Registraction {
             JOptionPane.showMessageDialog(null, "Task was not found");
         }
     }
-    
+ 
+//This this will search for the developer task name only
     private static void SearchDeveloperName(){
         String developers = JOptionPane.showInputDialog("Enter developer name to search it: ");
         StringBuilder result = new StringBuilder("Tasks for developer " + developer + ":\n");
@@ -293,7 +284,9 @@ public class Login_Registraction {
         }
         JOptionPane.showMessageDialog(null, result.toString()); 
     }
-    
+
+//This will delete that task that you do not want 
+//You will only delete by entering the name of the task    
     private static void   DeleteTask(){
         String taskNames = JOptionPane.showInputDialog("Enter task name to delete it: "); 
         int index = taskName.indexOf(taskName);
@@ -310,6 +303,7 @@ public class Login_Registraction {
         }
     }
 
+//This line of code will show the whole report of the tasks
     private static void showReport() {
         StringBuilder result = new StringBuilder("Full report of the captured tasks:\n" );
         for (int x = 0; x< taskName.size(); x++){
