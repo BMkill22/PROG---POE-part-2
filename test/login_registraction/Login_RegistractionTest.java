@@ -116,3 +116,4 @@ public class Login_RegistractionTest {
          assertEquals(89, Task.calculateTotalHoursAdditionalData(durations));
     }
 }
+

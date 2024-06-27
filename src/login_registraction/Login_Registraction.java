@@ -18,10 +18,11 @@ public class Login_Registraction {
     private static List<String> passwords = new ArrayList<>();
     private static List<String> usernames = new ArrayList<>();
     private static List<Task> tasks = new ArrayList<>();
-    private static List<String> developers = new ArrayList<>();
+    private static List<String> developer = new ArrayList<>();
+    private static List<String> taskID =new ArrayList<>();
     private static List<Integer> taskDuration = new ArrayList<>();
     private static List<String> taskName = new ArrayList<>();
-    private static final List<String> taskStatus = new ArrayList<>();
+    private static List<String> taskStatus = new ArrayList<>();
     private static List<Login_Registraction> logins = new ArrayList<>();
     private static int totalHours = 0;
     private static Login_Registraction loginSystem = new Login_Registraction();
@@ -94,7 +95,8 @@ public class Login_Registraction {
     boolean run = true;
     while (run) {
 // This displays the options the user should choose from
-        String choose = JOptionPane.showInputDialog(null, "Option 1) Add task " + "\nOption 2) Show report " + "\nOption 3) View all tasks done" + "\nOption 4) Longest task " + "\nOption 5) Search for task by name" + "\nOption 6) Search for task by developer name " + "\nOption 7) Delete a task " + "\nOption 8) Quit","Login information", JOptionPane.QUESTION_MESSAGE);
+        String choose = JOptionPane.showInputDialog(null, "Option 1) Add task " + "\nOption 2) Show report " + "\nOption 3) View all tasks done" + "\nOption 4) Longest task " 
+                                                        + "\nOption 5) Search for task by name" + "\nOption 6) Search for task by developer name " + "\nOption 7) Delete a task " + "\nOption 8) Quit","Login information", JOptionPane.QUESTION_MESSAGE);
     
 //This will re-display the menu if the user cancels
         if (choose == null){
@@ -110,16 +112,16 @@ public class Login_Registraction {
             ViewAllTasksDone();
         }
               else if (choose.equals("4")){
-            showReport();
+            ShowLongestTask();
         }
                  else if (choose.equals("5")){
-            showReport();
+            SearchTaskName();
         }
                     else if (choose.equals("6")){
-            showReport();
+            SearchDeveloperName();
         }
                        else if (choose.equals("7")){
-            showReport();
+            DeleteTask();
         }
                     
         else if (choose.equalsIgnoreCase("8")){
@@ -158,18 +160,6 @@ public class Login_Registraction {
     }
             return hasUpperCase && hasNumber && hasSpecialChar;
    }
-
-    private static void ViewAllTasksDone() {
-        StringBuilder result = new StringBuilder("Tasks with status 'Done':\n" );
-        for (int x = 0; x < taskStatus.size(); x++){
-            if ("Done".equals(taskStatus.get(x))){
-                result.append("Developer: ").append(developers.get(x)).append(", Task name: ")
-                      .append(taskName.get(x)).append(", Task Duration: ").append(taskDuration.get(x)).append("\n");
-                        
-            }
-        }
-        
-    }
 
 // Handle will cancel button and an empty input
 //All of this are the codes of what the user should enter for different types of tasks    
@@ -239,10 +229,94 @@ public class Login_Registraction {
             JOptionPane.showMessageDialog(null, "Total task duration across all tasks: " + totalHours + " hours");
     }
     
+    private static void AddTasks() {
+        String developers = JOptionPane.showInputDialog("Enter the developer name: ");
+        String taskNames = JOptionPane.showInputDialog("Enter the task name: ");
+        String taskIDs = JOptionPane.showInputDialog("Enter the task ID: ");
+        String taskStatuses = JOptionPane.showInputDialog("Enter the task status: ");
+        int taskDurations = Integer.parseInt(JOptionPane.showInputDialog("Enter the task duration (hours): "));
+        
+        developer.add(developers);
+        taskName.add(taskNames);
+        taskID.add(taskIDs);
+        taskDuration.add(taskDurations);
+        taskStatus.add(taskStatuses);
+    }
     
+      private static void ViewAllTasksDone() {
+          StringBuilder result = new StringBuilder("Tasks with status that are done:\n ");
+          for (int x = 0; x <taskStatus.size();x++){
+              if (taskStatus.get(x).equalsIgnoreCase("Done")){
+                  result.append("Developer: ").append(developer.get(x)).append("Task names: ").append(taskName.get(x)).append("Task Durations: ")
+                          .append(taskDuration.get(x)).append("hours:\n");
+              }
+          }
+          JOptionPane.showMessageDialog(null, result.toString());
+      }
+
+    private static void ShowLongestTask(){
+        if (taskDuration.isEmpty()){
+            JOptionPane.showMessageDialog(null, " No tasks were found! ");
+            return;
+        }
+        
+        int maxIndex = 0;
+        for (int x = 1;x < taskDuration.size();x++){
+            if (taskDuration.get(x) > taskDuration.get(maxIndex)){
+             maxIndex = x;   
+            }
+        }
+        String result = "Developer: " + developer.get(maxIndex) + ",Task Duration: " + taskDuration.get(maxIndex) + "hours";
+        JOptionPane.showMessageDialog(null, result);
+
+    }
+    
+    private static void SearchTaskName(){
+        String taskNames = JOptionPane.showInputDialog("Enter task name to search it: ");
+        int index = taskName.indexOf(taskNames);
+        if (index !=1){
+            String result = "The task name: " + taskName.get(index) + "Developers: " + developer.get(index) + "The task status: " + taskStatus.get(index);
+            JOptionPane.showMessageDialog(null, result);
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Task was not found");
+        }
+    }
+    
+    private static void SearchDeveloperName(){
+        String developers = JOptionPane.showInputDialog("Enter developer name to search it: ");
+        StringBuilder result = new StringBuilder("Tasks for developer " + developer + ":\n");
+        for (int x = 0;x < developer.size(); x++){
+            if (developer.get(x).equalsIgnoreCase(developers)){
+                result.append("Task name: ").append(taskName.get(x)).append(", Task status: ").append(taskStatus.get(x)).append("\n");
+            }
+        }
+        JOptionPane.showMessageDialog(null, result.toString()); 
+    }
+    
+    private static void   DeleteTask(){
+        String taskNames = JOptionPane.showInputDialog("Enter task name to delete it: "); 
+        int index = taskName.indexOf(taskName);
+        if (index != -1){
+            developer.remove(index);
+            taskName.remove(index);
+            taskID.remove(index);
+            taskDuration.remove(index);
+            taskStatus.remove(index);
+        JOptionPane.showMessageDialog(null, "Task was deleted successfully.");
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Task was not found.");
+        }
+    }
 
     private static void showReport() {
-        JOptionPane.showMessageDialog(null, "Coming Soon");
+        StringBuilder result = new StringBuilder("Full report of the captured tasks:\n" );
+        for (int x = 0; x< taskName.size(); x++){
+            result.append("Developer: ").append(developer.get(x)).append(", Task Name: ").append(taskName.get(x)).append(", Task ID: ").append(taskID.get(x))
+                  .append(", Task duration: ").append(taskDuration.get(x)).append("hours, Task Status: ").append(taskStatus.get(x)).append("\n");
+        }
+        JOptionPane.showMessageDialog(null, result.toString());
     }
 
 //This is the register and the logins 

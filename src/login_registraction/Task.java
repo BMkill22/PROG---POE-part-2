@@ -62,6 +62,7 @@ package login_registraction;
              + "Task ID: " + taskID + "\n"
              + "Task Duration: " + taskDuration + " hours";
     }
+     
 
     public int getTaskDuration() {
         return taskDuration;
@@ -74,6 +75,8 @@ package login_registraction;
     Object getTaskID() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    
 }
 
     
