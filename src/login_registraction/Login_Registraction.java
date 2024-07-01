@@ -76,6 +76,7 @@ public class Login_Registraction {
             }
         }
         String password = JOptionPane.showInputDialog("Enter your password(7 Characters, a captial letter and a special character):");
+        
         if (password == null || password.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Incorrect password. Please try again.");
             return;
@@ -136,32 +137,7 @@ public class Login_Registraction {
             }
         return false;
         
-        }
-    
-// The user will have to enter the right conditions to meet the requirments for the password
-    private static boolean isValidPassword(String password) {
-        if (password.length() == 8){
-            return false;   
-        }
-        
-            boolean hasUpperCase =  false;
-            boolean hasNumber = false;
-            boolean hasSpecialChar = false;
-        
-        for(char Ch : password.toCharArray()){
-            if(Character.isUpperCase(Ch)){
-                hasUpperCase = true;
-        }
-            else if(Character.isDigit(Ch)){
-                hasNumber = true;
-        }
-            else if(!Character.isLetterOrDigit(Ch)){
-                hasSpecialChar = true;    
-        }
-    }
-            return hasUpperCase && hasNumber && hasSpecialChar;
-   }
-       
+        }    
 
 // Handle will cancel button and an empty input
 //All of this are the codes of what the user should enter for different types of tasks    
