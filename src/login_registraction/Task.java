@@ -26,7 +26,7 @@ package login_registraction;
         private String taskStatus;
     Object getTaskID;
 
-    public Task(String taskName, int taskNumber, String taskDescription, String developerDetails, int taskDuration, String taskStatus) {
+    public Task(String taskName, String taskDescription, int taskNumber, String developerDetails) {
         this.taskName = taskName;
         this.taskNumber = taskNumber;
         this.taskDescription = taskDescription;

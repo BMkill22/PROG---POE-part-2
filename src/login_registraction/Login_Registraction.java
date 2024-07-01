@@ -63,6 +63,7 @@ public class Login_Registraction {
         }
         String username;
         while (true) {
+
 //This haas conditions that the user will have to have in the username
             username = JOptionPane.showInputDialog("Enter a username (5 characters with underscore):");
             if (username != null && username.length() == 5 && username.contains("_")) {
@@ -205,7 +206,7 @@ public class Login_Registraction {
         taskStatuses.add(durationInput);
         
 //This is the import of the Task class
-            Task task = new Task(taskNames, tasks.size(), taskDescription, developerDetails, taskDurations, taskStatus);
+            Task task = new Task(taskNames, taskDescription, tasks.size(), developerDetails);
             tasks.add(task);
             totalHours += task.getTaskDuration();
 
@@ -289,7 +290,7 @@ public class Login_Registraction {
     }
 
 //This line of code will show the whole report of the tasks
-    private static void showReport() {
+    static void showReport() {
         StringBuilder result = new StringBuilder("Full report of the captured tasks:\n" );
         for (int x = 0; x< taskName.size(); x++){
             result.append("Developer: ").append(developer.get(x)).append(", Task Name: ").append(taskName.get(x)).append(", Task ID: ").append(taskID.get(x))
@@ -314,9 +315,12 @@ public class Login_Registraction {
     }
 
     public boolean login(String username, String password) {
-        return users.containsKey(username) && users.get(username).equals(password);
+        return users.containsKey(username) && users.get(username).equals(password); 
     
-    
+    }
+
+    void addTask(Task task) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
 
