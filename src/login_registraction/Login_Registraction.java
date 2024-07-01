@@ -15,6 +15,8 @@ import java.util.Arrays;
  */
 public class Login_Registraction {
     
+    
+    
     private static List<String> passwords = new ArrayList<>();
     private static List<String> usernames = new ArrayList<>();
     private static List<Task> tasks = new ArrayList<>();
@@ -135,6 +137,7 @@ public class Login_Registraction {
                 JOptionPane.showMessageDialog(null, "Invalid login. Please try again.");
             }
         return false;
+        
         }
     
 // The user will have to enter the right conditions to meet the requirments for the password
@@ -160,6 +163,7 @@ public class Login_Registraction {
     }
             return hasUpperCase && hasNumber && hasSpecialChar;
    }
+       
 
 // Handle will cancel button and an empty input
 //All of this are the codes of what the user should enter for different types of tasks    
@@ -171,16 +175,17 @@ public class Login_Registraction {
         int numTasks;
         try {
             numTasks = Integer.parseInt(input);
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException e) 
+        {
             JOptionPane.showMessageDialog(null, "Invalid number. Please try again.");
             return;
         }
 
         for (int i = 0; i < numTasks; i++) {
-            String taskName = JOptionPane.showInputDialog("Enter task name:");
-            if (taskName == null) {
-                continue;
-            }
+            String taskNames = JOptionPane.showInputDialog("Enter task name:");
+            if (taskNames == null) {
+            continue;   
+            }  
 
             String taskDescription;
             while (true) {
@@ -197,37 +202,42 @@ public class Login_Registraction {
 
             String developerDetails = JOptionPane.showInputDialog("Enter developer details (First and Last name):");
             if (developerDetails == null) {
-                continue;
+            continue;   
             }
 
             String durationInput = JOptionPane.showInputDialog("Enter task duration in hours:");
             if (durationInput == null) {
-                continue;
+            continue;    
             }
-            int taskDuration;
+            int taskDurations = 0;
             try {
-                taskDuration = Integer.parseInt(durationInput);
+                taskDurations = Integer.parseInt(durationInput);
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Invalid duration. Please try again.");
-                continue;
+              
             }
 
 //The options is what is he going to do 
             String[] statuses = {"To Do", "Done", "Doing"};
             String taskStatus = (String) JOptionPane.showInputDialog(null, "Choose task status:", "Task Status", JOptionPane.QUESTION_MESSAGE, null, statuses, statuses[0]);
             if (taskStatus == null) {
-                continue;
+            continue;  
             }
-
+        
+        developer.add(developerDetails);
+        taskName.add(taskNames);
+        taskDuration.add(taskDurations);
+        taskID.add(durationInput);
+      
 //This is the import of the Task class
-            Task task = new Task(taskName, tasks.size(), taskDescription, developerDetails, taskDuration, taskStatus);
+            Task task = new Task(taskNames, tasks.size(), taskDescription, developerDetails, taskDurations, taskStatus);
             tasks.add(task);
             totalHours += task.getTaskDuration();
 
             JOptionPane.showMessageDialog(null, "Task successfully captured\n" + task.printTaskDetails());
+    
+            JOptionPane.showMessageDialog(null, "Total task duration across all tasks: " + totalHours + " hours");      
     }
-            JOptionPane.showMessageDialog(null, "Total task duration across all tasks: " + totalHours + " hours");
-            
     }
 
 //This lone of code shows all of the task that have be done    
@@ -289,16 +299,16 @@ public class Login_Registraction {
 //You will only delete by entering the name of the task    
     private static void   DeleteTask(){
         String taskNames = JOptionPane.showInputDialog("Enter task name to delete it: "); 
-        int index = taskName.indexOf(taskName);
-        if (index != -1){
-            developer.remove(index);
-            taskName.remove(index);
-            taskID.remove(index);
-            taskDuration.remove(index);
-            taskStatus.remove(index);
+        for(int x = 0;x <taskName.size(); x++){
+            if(taskName.get(x).equalsIgnoreCase(taskNames)){
+            developer.remove(x);
+            taskName.remove(x);
+            taskID.remove(x);
+            taskDuration.remove(x);
+            taskStatus.remove(x);
         JOptionPane.showMessageDialog(null, "Task was deleted successfully.");
-        }
-        else{
+        return;
+            }
             JOptionPane.showMessageDialog(null, "Task was not found.");
         }
     }
