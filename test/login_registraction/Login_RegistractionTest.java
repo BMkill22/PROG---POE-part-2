@@ -82,7 +82,7 @@ public class Login_RegistractionTest {
     
     @Test
     public void testTaskDescriptionLengthSuccess(){
-        Task task = new Task ("Login Feature", "should create a login to authenticate the users","Robyn Harrison", 8,"To Do");
+        Task task = new Task ("Login Feature", "should create a login to authenticate the users","Edward Harrison", 8,"done");
         assertEquals("Task is successfully captured", task.checkTaskDescription());
     }
     

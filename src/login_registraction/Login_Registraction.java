@@ -14,9 +14,7 @@ import java.util.Arrays;
  * @author kefil
  */
 public class Login_Registraction {
-    
-    
-    
+ 
     private static List<String> passwords = new ArrayList<>();
     private static List<String> usernames = new ArrayList<>();
     private static List<Task> tasks = new ArrayList<>();
@@ -24,7 +22,7 @@ public class Login_Registraction {
     private static List<String> taskID =new ArrayList<>();
     private static List<Integer> taskDuration = new ArrayList<>();
     private static List<String> taskName = new ArrayList<>();
-    private static List<String> taskStatus = new ArrayList<>();
+    private static List<String> taskStatuses = new ArrayList<>();
     private static List<Login_Registraction> logins = new ArrayList<>();
     private static int totalHours = 0;
     private static Login_Registraction loginSystem = new Login_Registraction();
@@ -228,7 +226,8 @@ public class Login_Registraction {
         taskName.add(taskNames);
         taskDuration.add(taskDurations);
         taskID.add(durationInput);
-      
+        taskStatuses.add(durationInput);
+        
 //This is the import of the Task class
             Task task = new Task(taskNames, tasks.size(), taskDescription, developerDetails, taskDurations, taskStatus);
             tasks.add(task);
@@ -243,8 +242,8 @@ public class Login_Registraction {
 //This lone of code shows all of the task that have be done    
       private static void ViewAllTasksDone() {
           StringBuilder result = new StringBuilder("Tasks with status that are done:\n ");
-          for (int x = 0; x <taskStatus.size();x++){
-              if (taskStatus.get(x).equalsIgnoreCase("Done")){
+          for (int x = 0; x <taskStatuses.size();x++){
+              if (taskStatuses.get(x).equalsIgnoreCase("Done")){
                   result.append("Developer: ").append(developer.get(x)).append("Task names: ").append(taskName.get(x)).append("Task Durations: ")
                           .append(taskDuration.get(x)).append("hours:\n");
               }
@@ -275,7 +274,7 @@ public class Login_Registraction {
         String taskNames = JOptionPane.showInputDialog("Enter task name to search it: ");
         int index = taskName.indexOf(taskNames);
         if (index !=1){
-            String result = "The task name: " + taskName.get(index) + "Developers: " + developer.get(index) + "The task status: " + taskStatus.get(index);
+            String result = "The task name: " + taskName.get(index) + "Developers: " + developer.get(index) + "The task status: " + taskStatuses.get(index);
             JOptionPane.showMessageDialog(null, result);
         }
         else {
@@ -289,7 +288,7 @@ public class Login_Registraction {
         StringBuilder result = new StringBuilder("Tasks for developer " + developer + ":\n");
         for (int x = 0;x < developer.size(); x++){
             if (developer.get(x).equalsIgnoreCase(developers)){
-                result.append("Task name: ").append(taskName.get(x)).append(", Task status: ").append(taskStatus.get(x)).append("\n");
+                result.append("Task name: ").append(taskName.get(x)).append(", Task status: ").append(taskStatuses.get(x)).append("\n");
             }
         }
         JOptionPane.showMessageDialog(null, result.toString()); 
@@ -305,7 +304,7 @@ public class Login_Registraction {
             taskName.remove(x);
             taskID.remove(x);
             taskDuration.remove(x);
-            taskStatus.remove(x);
+            taskStatuses.remove(x);
         JOptionPane.showMessageDialog(null, "Task was deleted successfully.");
         return;
             }
@@ -318,7 +317,7 @@ public class Login_Registraction {
         StringBuilder result = new StringBuilder("Full report of the captured tasks:\n" );
         for (int x = 0; x< taskName.size(); x++){
             result.append("Developer: ").append(developer.get(x)).append(", Task Name: ").append(taskName.get(x)).append(", Task ID: ").append(taskID.get(x))
-                  .append(", Task duration: ").append(taskDuration.get(x)).append("hours, Task Status: ").append(taskStatus.get(x)).append("\n");
+                  .append(", Task duration: ").append(taskDuration.get(x)).append("hours, Task Status: ").append(taskStatuses.get(x)).append("\n");
         }
         JOptionPane.showMessageDialog(null, result.toString());
     }
